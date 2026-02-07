@@ -1,0 +1,199 @@
+<!-- Anonymous Free Board -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Anonymous Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "ios-bg": "#ffffff",
+                        "ios-divider": "#f2f2f7",
+                        "ios-text-primary": "#000000",
+                        "ios-text-secondary": "#8e8e93",
+                        "ios-accent": "#000000",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            -webkit-tap-highlight-color: transparent;
+            background-color: #ffffff;
+        }
+        .ios-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .post-divider {
+            border-bottom: 0.5px solid #efeff4;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-ios-bg text-ios-text-primary min-h-screen">
+<header class="sticky top-0 z-40 bg-white/80 ios-blur border-b border-ios-divider">
+<div class="flex items-center justify-between px-5 py-4">
+<div class="flex items-center gap-1">
+<h1 class="text-[20px] font-bold tracking-tight">Anonymous Board</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">search</span>
+</button>
+<button class="flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+</div>
+</div>
+<div class="flex px-5 gap-6 overflow-x-auto hide-scrollbar">
+<a class="relative py-2 text-[14px] font-semibold text-ios-text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-black" href="#">
+            Latest
+        </a>
+<a class="py-2 text-[14px] font-medium text-ios-text-secondary" href="#">
+            Popular
+        </a>
+<a class="py-2 text-[14px] font-medium text-ios-text-secondary" href="#">
+            Trending
+        </a>
+</div>
+</header>
+<main class="flex flex-col">
+<div class="px-5 py-5 post-divider active:bg-gray-50 transition-colors">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<h3 class="text-[16px] font-bold leading-snug">Anyone know the DJ from the main room tonight?</h3>
+</div>
+<p class="text-[14px] text-gray-600 line-clamp-2 leading-relaxed">That house set was absolutely insane. I need to find the tracklist or at least the SoundCloud of whoever was playing between 1-3 AM...</p>
+<div class="flex items-center gap-3 mt-1.5">
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="text-[12px]">Anonymous</span>
+<span class="text-[10px]">•</span>
+<span class="text-[12px]">2m ago</span>
+</div>
+<div class="flex items-center gap-3 ml-auto">
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="text-[12px]">12</span>
+</div>
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+<span class="text-[12px]">48</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-5 py-5 post-divider active:bg-gray-50 transition-colors">
+<div class="flex flex-col gap-1.5">
+<h3 class="text-[16px] font-bold leading-snug">Found a gold ring near the VIP lounge</h3>
+<p class="text-[14px] text-gray-600 line-clamp-2 leading-relaxed">It has some initials engraved on the inside. I handed it over to the staff at the front desk. Hope the owner sees this!</p>
+<div class="flex items-center gap-3 mt-1.5">
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="text-[12px]">Anonymous</span>
+<span class="text-[10px]">•</span>
+<span class="text-[12px]">14m ago</span>
+</div>
+<div class="flex items-center gap-3 ml-auto">
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="text-[12px]">3</span>
+</div>
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+<span class="text-[12px]">15</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-5 py-5 post-divider active:bg-gray-50 transition-colors">
+<div class="flex gap-4">
+<div class="flex-1 flex flex-col gap-1.5">
+<h3 class="text-[16px] font-bold leading-snug">The light show tonight is on another level</h3>
+<p class="text-[14px] text-gray-600 line-clamp-2 leading-relaxed">Props to the visual team. Those laser patterns are perfectly synced with the bass drops.</p>
+<div class="flex items-center gap-3 mt-1.5">
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="text-[12px]">Anonymous</span>
+<span class="text-[10px]">•</span>
+<span class="text-[12px]">1h ago</span>
+</div>
+</div>
+</div>
+<div class="w-20 h-20 bg-cover bg-center rounded-lg border border-gray-100 shrink-0" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAsKuLH1czK_oX8D9P8eLKJte1JZLUnva5s7lKZdzcHAzymVzr7I-qdMaZxsgaejue4raUS6mXXj9JkqpjYMoN-isTEB2wKF2M04fzcJZmKMyD4p-DO19nLiX0zaA1lMQv8aspb_GXeiyVRkVheh16Wfx57iOF--3ybbilBeytzdPt_dt6ByKIqq7pAfyqT2u96IvGZ0FKM_3VqnZFXdEPxPggfPkF8hb9dF0b8IMM-GlpuYroEXBtQcaYQjTlueTXzo4J99j50i4Q')"></div>
+</div>
+<div class="flex items-center gap-3 mt-1 justify-end">
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="text-[12px]">8</span>
+</div>
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+<span class="text-[12px]">124</span>
+</div>
+</div>
+</div>
+<div class="px-5 py-5 post-divider active:bg-gray-50 transition-colors">
+<div class="flex flex-col gap-1.5">
+<h3 class="text-[16px] font-bold leading-snug">Is the basement floor open yet?</h3>
+<p class="text-[14px] text-gray-600 line-clamp-2 leading-relaxed">Thinking of heading down there if the techno set has started. Let me know if it's crowded already!</p>
+<div class="flex items-center gap-3 mt-1.5">
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="text-[12px]">Anonymous</span>
+<span class="text-[10px]">•</span>
+<span class="text-[12px]">3h ago</span>
+</div>
+<div class="flex items-center gap-3 ml-auto">
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+<span class="text-[12px]">21</span>
+</div>
+<div class="flex items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+<span class="text-[12px]">6</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="h-28"></div>
+</main>
+<button class="fixed bottom-28 right-6 size-12 bg-black text-white rounded-full shadow-lg flex items-center justify-center z-50 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[24px]">edit_note</span>
+</button>
+<nav class="fixed bottom-0 left-0 right-0 bg-white/95 ios-blur border-t border-ios-divider px-8 py-3 pb-8 flex justify-between items-center z-40">
+<div class="flex flex-col items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[24px]">explore</span>
+<span class="text-[10px] font-medium">Explore</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-ios-text-primary">
+<span class="material-symbols-outlined text-[24px] fill-1">forum</span>
+<span class="text-[10px] font-bold">Board</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-ios-text-secondary">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="text-[10px] font-medium">My</span>
+</div>
+</nav>
+
+</body></html>

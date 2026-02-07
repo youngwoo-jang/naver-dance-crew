@@ -1,0 +1,158 @@
+<!-- Dance Club Home -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dance Club Home (K-Style)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#000000",
+                        "secondary": "#ffffff",
+                        "gray-bg": "#f9f9f9",
+                        "border-light": "#e5e5e5",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "none": "0",
+                        "sm": "2px",
+                        "DEFAULT": "4px",
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            -webkit-font-smoothing: antialiased;
+        }
+        .ios-bottom-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid #eeeeee;
+        }
+        .sharp-card {
+            border: 1px solid #eeeeee;
+            border-radius: 2px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen pb-24">
+<header class="flex items-center px-6 py-6 justify-between bg-white sticky top-0 z-50">
+<div class="flex items-center">
+<h1 class="text-xl font-bold tracking-tighter uppercase">Studio.</h1>
+</div>
+<div class="flex gap-4">
+<button class="material-symbols-outlined text-2xl">search</button>
+<button class="material-symbols-outlined text-2xl">notifications</button>
+</div>
+</header>
+<div class="px-6 mb-12">
+<div class="relative w-full aspect-[4/5] overflow-hidden rounded-sm group">
+<img alt="Dance Performance" class="w-full h-full object-cover grayscale brightness-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTckqJ2WJXzt_qXDUPpzxHVtJ65gQzX2Qy7aZtzbgIWFEhyPL10RYw1JF7w6uUGypJMyLX2-KzYfBDm_1EKw6xz-U6KOVdi0O79n15CzCZaYvw0ag6l9txqgH7OIDvLtYCJcyw1Y3x7H7uX-alpaVLxkPU2Ysfxs3rV460PgZiqSmbr-sGFn1da_Pv0xcJdOD4ZUYkatmcDkutXx_BzXseOvzUaEkD_v9alYP2i7RD7yh1mpU6LbG-YKsqbdKq-MRH36P3vafhZeE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8">
+<h2 class="text-white text-4xl font-light leading-tight mb-6">
+                Redefining<br/>
+<span class="font-bold">Movement.</span>
+</h2>
+<button class="w-full bg-white text-black py-4 text-sm font-semibold uppercase tracking-widest rounded-sm transition-opacity hover:opacity-90 active:scale-[0.98]">
+                Join Us
+            </button>
+</div>
+</div>
+</div>
+<div class="px-6 mb-12">
+<div class="border-b border-black pb-4 mb-6">
+<h3 class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">Our Space</h3>
+</div>
+<div class="space-y-6">
+<img alt="Studio Interior" class="w-full h-48 object-cover grayscale rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfxnUUznXbeV2RhmkuIPMIv2fhR5I8DcvC8OX5187P6woLMyIu3DBURgpNHHwARbAbgeSiS4rCMPXTPojQVLx9mR7iVl3GDFnlY-0mDAUoc9yd1KfNTfr9w_3bT1KG1QheO2TAKUwT0aNxmWynokSx9zbeNdrl-_LPR5CbuNJaDXqOVlghbR0r5FqYbWZmubHPo1JwwD8mluSDcnitZMql4XTp-6pTMhqBN5Qv_jdFi7SfGULKZXJIysHZNP3fTnzNp0d-hn3v_kU"/>
+<div class="space-y-4">
+<h4 class="text-2xl font-semibold tracking-tight">The Modern Collective</h4>
+<p class="text-gray-500 leading-relaxed font-light text-[15px]">
+                A sanctuary for technical growth and creative freedom. Our studio provides a minimalist environment where the only thing that matters is your performance.
+            </p>
+<button class="inline-flex items-center border-b border-black py-1 text-sm font-medium">
+                View Studio Details
+                <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="px-6 mb-8">
+<div class="flex items-end justify-between border-b border-black pb-4 mb-4">
+<h3 class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">Community Board</h3>
+<a class="text-[10px] font-bold uppercase tracking-widest border-b border-gray-300" href="#">View All</a>
+</div>
+<div class="divide-y divide-gray-100">
+<article class="py-6 group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] text-gray-400 font-medium tracking-widest uppercase">Anonymous • 2m ago</span>
+<span class="material-symbols-outlined text-gray-300 text-lg">more_horiz</span>
+</div>
+<h5 class="text-lg font-medium mb-2 leading-snug">Private practice availability tonight?</h5>
+<p class="text-gray-500 text-sm font-light mb-4 line-clamp-2">Looking for a quiet spot to work on contemporary lines after 9 PM.</p>
+<div class="flex gap-4">
+<div class="flex items-center gap-1 text-[11px] font-medium text-gray-400">
+<span class="material-symbols-outlined text-sm">chat_bubble</span> 12
+                </div>
+<div class="flex items-center gap-1 text-[11px] font-medium text-gray-400">
+<span class="material-symbols-outlined text-sm">favorite</span> 45
+                </div>
+</div>
+</article>
+<article class="py-6">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] text-gray-400 font-medium tracking-widest uppercase">Anonymous • 15m ago</span>
+<span class="material-symbols-outlined text-gray-300 text-lg">more_horiz</span>
+</div>
+<h5 class="text-lg font-medium mb-2 leading-snug">Choreography feedback session</h5>
+<p class="text-gray-500 text-sm font-light mb-4 line-clamp-2">Just uploaded a new clip. Looking for honest critique on the floor work section.</p>
+<div class="flex gap-4">
+<div class="flex items-center gap-1 text-[11px] font-medium text-gray-400">
+<span class="material-symbols-outlined text-sm">chat_bubble</span> 8
+                </div>
+<div class="flex items-center gap-1 text-[11px] font-medium text-gray-400">
+<span class="material-symbols-outlined text-sm">favorite</span> 22
+                </div>
+</div>
+</article>
+</div>
+</div>
+<nav class="fixed bottom-0 left-0 right-0 ios-bottom-nav px-8 pt-4 pb-8 flex items-center justify-between z-50">
+<button class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined active-icon text-[28px]">home</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined text-[28px]">crop_square</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">Board</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined text-[28px]">person</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">Profile</span>
+</button>
+</nav>
+
+</body></html>

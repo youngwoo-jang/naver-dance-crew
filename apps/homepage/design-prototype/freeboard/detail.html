@@ -1,0 +1,141 @@
+<!-- Post Details and Admin Comments -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Post Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "bg-white": "#ffffff",
+                        "bg-gray-soft": "#f9f9f9",
+                        "border-light": "#eeeeee",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .ios-bottom-bar {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-white text-zinc-900">
+<div class="max-w-md mx-auto min-h-screen flex flex-col bg-white relative">
+<header class="sticky top-0 z-20 flex items-center justify-between bg-white/90 backdrop-blur-md px-4 py-3 border-b border-border-light">
+<button class="flex items-center -ml-2 text-zinc-900">
+<span class="material-symbols-outlined text-[28px]">chevron_left</span>
+</button>
+<h1 class="text-[15px] font-semibold tracking-tight">Post Details</h1>
+<div class="flex items-center gap-3">
+<button class="text-[13px] font-medium text-zinc-500 hover:text-black transition-colors">Edit</button>
+<button class="text-[13px] font-medium text-zinc-500 hover:text-red-600 transition-colors">Delete</button>
+</div>
+</header>
+<main class="flex-1 px-5 pt-6 pb-32">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+<div>
+<h3 class="text-[14px] font-bold text-zinc-900">Anonymous</h3>
+<p class="text-[11px] text-zinc-400 uppercase tracking-wider font-medium">2 hours ago</p>
+</div>
+</div>
+<div class="px-2 py-0.5 border border-zinc-200 rounded text-[10px] font-bold text-zinc-500 uppercase tracking-tighter">
+                    #Dancefloor
+                </div>
+</div>
+<article class="mb-8">
+<p class="text-[15px] leading-[1.6] text-zinc-800 font-normal">
+                    Has anyone checked out the new floor lighting at the club? It feels a bit bright during the techno sets. Any thoughts on the weekend lineup? 
+                    <br/><br/>
+                    The bass in the back corner also felt a bit muddy last night. Just checking if I'm the only one!
+                </p>
+</article>
+<div class="flex items-center gap-5 pb-8 border-b border-border-light">
+<button class="flex items-center gap-1.5 text-zinc-400">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+<span class="text-[13px] font-medium">24</span>
+</button>
+<button class="flex items-center gap-1.5 text-zinc-400">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+<span class="text-[13px] font-medium">1</span>
+</button>
+<button class="flex items-center gap-1.5 text-zinc-400 ml-auto">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+</div>
+<section class="mt-8">
+<div class="flex items-center gap-3 mb-5">
+<h2 class="text-[11px] font-bold uppercase tracking-[0.1em] text-zinc-400">Official Feedback</h2>
+<div class="h-px flex-1 bg-border-light"></div>
+</div>
+<div class="bg-bg-gray-soft rounded-xl p-5 border border-zinc-100">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2.5">
+<div class="size-8 rounded bg-black flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[18px]">shield_person</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="text-[13px] font-bold text-zinc-900 tracking-tight">Management</h4>
+<span class="text-[9px] bg-zinc-900 text-white px-1.5 py-0.5 rounded-sm font-bold uppercase tracking-widest">Admin</span>
+</div>
+</div>
+</div>
+<span class="text-[10px] text-zinc-400 font-medium">Just Now</span>
+</div>
+<div class="space-y-3">
+<p class="text-[14px] leading-[1.6] text-zinc-700">
+                            Hi there! Thanks for the feedback. We're actually testing a new visual array for the upcoming festival season. 
+                        </p>
+<p class="text-[14px] leading-[1.6] text-zinc-700">
+                            Regarding the sound—our tech team is recalibrating the corner subs this afternoon. We want that bass crisp for you. Come say hi next time!
+                        </p>
+</div>
+<div class="mt-5 pt-4 border-t border-zinc-200/50 flex items-center justify-between">
+<button class="text-[12px] font-semibold text-zinc-900 flex items-center gap-1">
+                            Reply to Admin
+                        </button>
+<div class="flex gap-4">
+<button class="material-symbols-outlined text-[18px] text-zinc-400">thumb_up</button>
+<button class="material-symbols-outlined text-[18px] text-zinc-400">more_horiz</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-xl border-t border-border-light ios-bottom-bar">
+<div class="p-4 flex items-center gap-3">
+<div class="flex-1 flex items-center gap-3 bg-zinc-100 rounded-full px-4 py-2.5">
+<input class="bg-transparent border-none focus:ring-0 flex-1 text-[14px] p-0 placeholder:text-zinc-400 text-zinc-900" placeholder="Write a comment..." type="text"/>
+<button class="text-zinc-900 font-bold text-[13px] uppercase tracking-wider">
+                        Post
+                    </button>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,104 @@
+<!-- Create New Anonymous Post -->
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Post (K-Style)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#000000",
+                        "gray-light": "#F2F2F2",
+                        "border-thin": "#E5E5E5",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            background-color: #FFFFFF;
+            -webkit-font-smoothing: antialiased;
+        }
+        .ios-safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 24px);
+        }::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-white text-black font-sans">
+<div class="relative flex h-screen w-full flex-col overflow-hidden max-w-[430px] mx-auto bg-white border-x border-gray-50">
+<header class="flex items-center justify-between px-6 py-5 bg-white">
+<button class="flex items-center text-black">
+<span class="material-symbols-outlined text-[22px]">arrow_back_ios</span>
+</button>
+<h1 class="text-[16px] font-medium tracking-tight">Create Post</h1>
+<button class="bg-black text-white px-5 py-2 rounded-full text-xs font-medium tracking-wide active:opacity-70 transition-opacity">
+                Post
+            </button>
+</header>
+<main class="flex-1 flex flex-col px-6 pt-2 overflow-y-auto">
+<div class="flex items-center gap-3 py-6 border-b border-gray-100 mb-8">
+<div class="size-8 rounded-full bg-gray-light flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px] text-gray-400">person</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[13px] font-medium text-black">Anonymous</span>
+<span class="text-[11px] text-gray-400">Post will be shared in the dance community</span>
+</div>
+</div>
+<div class="flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<label class="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.1em]">Headline</label>
+<input class="w-full border border-black/10 rounded-lg px-4 py-3 text-[15px] font-medium placeholder:text-gray-300 focus:ring-1 focus:ring-black focus:border-black transition-all outline-none" placeholder="Title of your post" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.1em]">Content</label>
+<textarea class="w-full border border-black/10 rounded-lg px-4 py-4 text-[15px] leading-relaxed placeholder:text-gray-300 focus:ring-1 focus:ring-black focus:border-black transition-all outline-none resize-none min-h-[320px]" placeholder="What's on your mind?"></textarea>
+</div>
+</div>
+<div class="h-24"></div>
+</main>
+<div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 ios-safe-bottom">
+<div class="flex items-center justify-between px-6 py-4">
+<div class="flex items-center gap-6">
+<button class="text-gray-400 hover:text-black transition-colors">
+<span class="material-symbols-outlined text-[24px]">image</span>
+</button>
+<button class="text-gray-400 hover:text-black transition-colors">
+<span class="material-symbols-outlined text-[24px]">mood</span>
+</button>
+<button class="text-gray-400 hover:text-black transition-colors">
+<span class="material-symbols-outlined text-[24px]">list_alt</span>
+</button>
+<button class="text-gray-400 hover:text-black transition-colors">
+<span class="material-symbols-outlined text-[24px]">tag</span>
+</button>
+</div>
+<div class="flex items-center">
+<span class="text-[11px] font-medium text-gray-300 tracking-tighter">0 / 1000</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1 bg-black/10 rounded-full pointer-events-none"></div>
+</div>
+
+</body></html>
