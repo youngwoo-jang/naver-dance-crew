@@ -2,13 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { supabase } from "@/lib/supabase";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+const smtpEnabled =
+  process.env.SMTP_USER && process.env.SMTP_PASS && process.env.SMTP_DEST;
+
+const transporter = smtpEnabled
+  ? nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    })
+  : null;
 
 // GET /api/posts - List all posts with counts
 export async function GET(request: NextRequest) {
@@ -94,25 +99,27 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Send email notification (fire-and-forget)
-  const tagLabel = tags?.length ? `[${tags.join(", ")}] ` : "";
-  transporter
-    .sendMail({
-      from: `게시판 봇 <${process.env.SMTP_USER}>`,
-      to: process.env.SMTP_DEST,
-      subject: `새 게시글: ${tagLabel}${title.trim()}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:480px">
-          <p style="color:#6b7280;font-size:13px;margin:0 0 12px">익명게시판에 새 글이 등록되었습니다.</p>
-          ${tags?.length ? `<p style="margin:0 0 8px"><span style="background:#f3e8ff;color:#9333ea;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:bold">${tags[0]}</span></p>` : ""}
-          <h2 style="margin:0 0 8px;font-size:17px">${title.trim()}</h2>
-          <p style="color:#374151;font-size:14px;line-height:1.6;white-space:pre-wrap">${content.trim().slice(0, 300)}</p>
-          <p style="color:#9ca3af;font-size:12px;margin-top:16px">작성자: ${display_author?.trim() || "익명"}</p>
-        </div>
-      `,
-    })
-    .then((res) => console.log("[SMTP] 메일 발송 성공:", res.messageId))
-    .catch((err) => console.error("[SMTP] 메일 발송 실패:", err));
+  // Send email notification (fire-and-forget, skipped if SMTP not configured)
+  if (transporter) {
+    const tagLabel = tags?.length ? `[${tags.join(", ")}] ` : "";
+    transporter
+      .sendMail({
+        from: `게시판 봇 <${process.env.SMTP_USER}>`,
+        to: process.env.SMTP_DEST,
+        subject: `새 게시글: ${tagLabel}${title.trim()}`,
+        html: `
+          <div style="font-family:sans-serif;max-width:480px">
+            <p style="color:#6b7280;font-size:13px;margin:0 0 12px">익명게시판에 새 글이 등록되었습니다.</p>
+            ${tags?.length ? `<p style="margin:0 0 8px"><span style="background:#f3e8ff;color:#9333ea;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:bold">${tags[0]}</span></p>` : ""}
+            <h2 style="margin:0 0 8px;font-size:17px">${title.trim()}</h2>
+            <p style="color:#374151;font-size:14px;line-height:1.6;white-space:pre-wrap">${content.trim().slice(0, 300)}</p>
+            <p style="color:#9ca3af;font-size:12px;margin-top:16px">작성자: ${display_author?.trim() || "익명"}</p>
+          </div>
+        `,
+      })
+      .then((res) => console.log("[SMTP] 메일 발송 성공:", res.messageId))
+      .catch((err) => console.error("[SMTP] 메일 발송 실패:", err));
+  }
 
   return NextResponse.json(
     { ...data, comment_count: 0, like_count: 0, liked_by_user: false },
