@@ -6,6 +6,7 @@ import { usePost, useUpdatePost } from "@/lib/posts-context";
 import { useLocalUser } from "@/lib/use-local-user";
 import { useAdmin } from "@/lib/use-admin";
 import PostForm from "../../_components/post-form";
+import * as gtag from "@/lib/gtag";
 
 export default function EditPostPage() {
   const params = useParams();
@@ -59,7 +60,10 @@ export default function EditPostPage() {
         updatePost.mutate(
           { id: postId, input: { ...data, tags: data.tags } },
           {
-            onSuccess: () => router.push(`/board/${postId}${adminQuery}`),
+            onSuccess: () => {
+              gtag.event("edit_post", { post_id: postId });
+              router.push(`/board/${postId}${adminQuery}`);
+            },
           }
         )
       }

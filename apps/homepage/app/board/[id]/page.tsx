@@ -18,6 +18,7 @@ import { formatRelativeTime } from "@/lib/utils";
 import { MeatballMenu } from "@/components/ui/MeatballMenu";
 import { LikeButton } from "@/components/ui/LikeButton";
 import { getTagStyle } from "@/lib/tags";
+import * as gtag from "@/lib/gtag";
 
 export default function PostDetailPage() {
   const params = useParams();
@@ -54,6 +55,7 @@ export default function PostDetailPage() {
 
   const handleDelete = () => {
     if (window.confirm("이 게시글을 삭제하시겠습니까?")) {
+      gtag.event("delete_post", { post_id: postId });
       deletePost.mutate(postId, {
         onSuccess: () => router.push(`/board${adminQuery}`),
       });
@@ -66,6 +68,7 @@ export default function PostDetailPage() {
 
   const handleToggleLike = () => {
     if (!userId) return;
+    gtag.event(isLiked ? "unlike_post" : "like_post", { post_id: postId });
     toggleLike.mutate();
   };
 
@@ -73,6 +76,7 @@ export default function PostDetailPage() {
     if (!commentText.trim() || !userId) return;
     const text = commentText.trim();
     setCommentText("");
+    gtag.event("create_comment", { post_id: postId });
     createComment.mutate({
       content: text,
       display_author: isAdmin ? "운영진" : "익명",
@@ -82,6 +86,7 @@ export default function PostDetailPage() {
 
   const handleDeleteComment = (commentId: string) => {
     if (window.confirm("이 댓글을 삭제하시겠습니까?")) {
+      gtag.event("delete_comment", { post_id: postId, comment_id: commentId });
       deleteComment.mutate(commentId);
     }
   };

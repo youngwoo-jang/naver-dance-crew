@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCreatePost } from "@/lib/posts-context";
 import { useAdmin } from "@/lib/use-admin";
 import PostForm from "../_components/post-form";
+import * as gtag from "@/lib/gtag";
 
 function CreatePostContent() {
   const router = useRouter();
@@ -25,6 +26,7 @@ function CreatePostContent() {
           display_author: isAdmin ? "운영진" : data.display_author,
           is_admin: isAdmin || undefined,
         });
+        gtag.event("create_post", { tags: (data.tags ?? []).join(",") });
         router.push(`/board${adminQuery}`);
       }}
     />
