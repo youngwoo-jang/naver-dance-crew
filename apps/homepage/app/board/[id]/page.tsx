@@ -87,7 +87,7 @@ export default function PostDetailPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white relative">
+    <div className="min-h-screen flex flex-col bg-white relative" style={{ animation: "fadeIn 0.3s ease both" }}>
       {/* Header */}
       <header className="sticky top-0 z-20 flex items-center justify-between bg-white/90 ios-blur px-4 py-3 border-b border-border-light">
         <Link href={`/board${adminQuery}`} className="flex items-center text-black">

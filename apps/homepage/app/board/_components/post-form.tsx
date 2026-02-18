@@ -113,7 +113,7 @@ export default function PostForm({
   };
 
   return (
-    <div className="min-h-screen w-full bg-white">
+    <div className="min-h-screen w-full bg-white" style={{ animation: "fadeIn 0.3s ease both" }}>
       {/* Header */}
       <header className="sticky top-0 z-10 flex items-center justify-between px-6 py-5 bg-white">
         <Link href={`/board${adminQuery}`} className="flex items-center text-black">
