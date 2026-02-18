@@ -67,3 +67,9 @@ body {
 .ios-bottom-bar {
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

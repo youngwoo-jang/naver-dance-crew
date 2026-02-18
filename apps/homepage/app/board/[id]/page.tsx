@@ -39,7 +39,7 @@ export default function PostDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
-        <span className="text-[14px] text-gray-400">불러오는 중...</span>
+        <div className="size-6 border-2 border-gray-200 border-t-gray-500 rounded-full" style={{ animation: "spin 0.8s linear infinite" }} />
       </div>
     );
   }

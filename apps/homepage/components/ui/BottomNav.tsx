@@ -26,7 +26,8 @@ export function BottomNav({ adminQuery = "" }: { adminQuery?: string }) {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 ios-bottom-nav px-8 pt-4 pb-8 flex items-center z-50">
+    <>
+    <nav className="fixed bottom-0 left-0 right-0 ios-bottom-nav px-0 pt-3 pb-3 flex items-center z-50">
       {navItems.map((item) => {
         const isActive =
           item.href === "/"
@@ -48,23 +49,23 @@ export function BottomNav({ adminQuery = "" }: { adminQuery?: string }) {
             >
               {item.icon}
             </span>
-            <span className="text-[9px] font-bold uppercase tracking-tighter">
+            <span className="text-[11px] font-bold uppercase tracking-tighter">
               {item.label}
             </span>
           </Link>
         );
       })}
-      <a
-        href="https://github.com/youngwoo-jang/naver-dance-crew"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex-1 flex flex-col items-center gap-1 text-gray-400"
-      >
-        <GitHubIcon />
-        <span className="text-[9px] font-bold uppercase tracking-tighter">
-          기여하기
-        </span>
-      </a>
     </nav>
+
+    {/* GitHub icon - top right */}
+    <a
+      href="https://github.com/youngwoo-jang/naver-dance-crew"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="fixed top-4 right-6 z-50 text-gray-400 hover:text-black transition-colors"
+    >
+      <GitHubIcon className="w-7 h-7" />
+    </a>
+    </>
   );
 }

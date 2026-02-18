@@ -77,7 +77,7 @@ function BoardPageContent() {
       <main className="flex flex-col">
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <span className="text-[14px] text-gray-400">불러오는 중...</span>
+            <div className="size-6 border-2 border-gray-200 border-t-gray-500 rounded-full" style={{ animation: "spin 0.8s linear infinite" }} />
           </div>
         ) : !posts?.length ? (
           <div className="flex items-center justify-center py-20">
@@ -127,18 +127,18 @@ function BoardPageContent() {
                     </span>
                   </div>
                   <div className="flex items-center gap-3 ml-auto">
-                    <div className="flex items-center gap-1 text-ios-text-secondary">
-                      <span className="material-symbols-outlined text-[16px]">
-                        chat_bubble
-                      </span>
-                      <span className="text-[12px]">{post.comment_count}</span>
-                    </div>
                     <PostLikeButton
                       postId={post.id}
                       liked={post.liked_by_user}
                       count={post.like_count}
                       disabled={!userId}
                     />
+                    <div className="flex items-center gap-1 text-ios-text-secondary">
+                      <span className="material-symbols-outlined text-[16px]">
+                        chat_bubble
+                      </span>
+                      <span className="text-[12px]">{post.comment_count}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -165,7 +165,7 @@ function BoardPageContent() {
         {hasNextPage && (
           <div ref={sentinelRef} className="flex items-center justify-center py-6">
             {isFetchingNextPage && (
-              <span className="text-[14px] text-gray-400">불러오는 중...</span>
+              <div className="size-5 border-2 border-gray-200 border-t-gray-500 rounded-full" style={{ animation: "spin 0.8s linear infinite" }} />
             )}
           </div>
         )}
