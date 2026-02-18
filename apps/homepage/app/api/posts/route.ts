@@ -15,21 +15,39 @@ const transporter = smtpEnabled
     })
   : null;
 
-// GET /api/posts - List all posts with counts
+// GET /api/posts - List posts with cursor-based pagination
 export async function GET(request: NextRequest) {
   const userId = request.headers.get("x-user-id") || "";
+  const { searchParams } = new URL(request.url);
+  const cursor = searchParams.get("cursor");
+  const limit = Math.min(Number(searchParams.get("limit")) || 20, 100);
 
-  const { data: posts, error } = await supabase
+  let query = supabase
     .from("posts")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(limit + 1); // fetch one extra to determine if there's a next page
+
+  if (cursor) {
+    query = query.lt("created_at", cursor);
+  }
+
+  const { data: posts, error } = await query;
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  const hasMore = posts.length > limit;
+  const sliced = hasMore ? posts.slice(0, limit) : posts;
+  const nextCursor = hasMore ? sliced[sliced.length - 1].created_at : null;
+
   // Get comment counts and like counts for all posts
-  const postIds = posts.map((p) => p.id);
+  const postIds = sliced.map((p) => p.id);
+
+  if (postIds.length === 0) {
+    return NextResponse.json({ posts: [], nextCursor: null });
+  }
 
   const [{ data: commentCounts }, { data: likeCounts }, { data: userLikes }] =
     await Promise.all([
@@ -60,14 +78,14 @@ export async function GET(request: NextRequest) {
     (userLikes || []).map((r: { post_id: string }) => r.post_id)
   );
 
-  const result = posts.map((post) => ({
+  const result = sliced.map((post) => ({
     ...post,
     comment_count: commentCountMap.get(post.id) || 0,
     like_count: likeCountMap.get(post.id) || 0,
     liked_by_user: userLikeSet.has(post.id),
   }));
 
-  return NextResponse.json(result);
+  return NextResponse.json({ posts: result, nextCursor });
 }
 
 // POST /api/posts - Create a new post

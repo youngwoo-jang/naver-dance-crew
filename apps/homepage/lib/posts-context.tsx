@@ -1,14 +1,18 @@
 "use client";
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery, useMutation, useQueryClient, InfiniteData } from "@tanstack/react-query";
 import * as api from "@/lib/api";
-import { Post, CreatePostInput, CreateCommentInput, Comment } from "@/types/post";
+import { Post, PostsPage, CreatePostInput, CreateCommentInput, Comment } from "@/types/post";
+
+type PostsInfiniteData = InfiniteData<PostsPage, string | undefined>;
 
 // Posts hooks
 export function usePosts() {
-  return useQuery<Post[]>({
+  return useInfiniteQuery<PostsPage, Error, PostsInfiniteData, string[], string | undefined>({
     queryKey: ["posts"],
-    queryFn: api.fetchPosts,
+    queryFn: ({ pageParam }) => api.fetchPosts(pageParam),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
   });
 }
 
@@ -26,7 +30,7 @@ export function useCreatePost() {
     mutationFn: (input: CreatePostInput) => api.createPost(input),
     onMutate: async (input) => {
       await queryClient.cancelQueries({ queryKey: ["posts"] });
-      const previousPosts = queryClient.getQueryData<Post[]>(["posts"]);
+      const previous = queryClient.getQueryData<PostsInfiniteData>(["posts"]);
 
       const optimisticPost: Post = {
         id: `temp-${Date.now()}`,
@@ -43,15 +47,21 @@ export function useCreatePost() {
         is_admin: input.is_admin,
       };
 
-      if (previousPosts) {
-        queryClient.setQueryData<Post[]>(["posts"], [optimisticPost, ...previousPosts]);
+      if (previous) {
+        const updated: PostsInfiniteData = {
+          ...previous,
+          pages: previous.pages.map((page, i) =>
+            i === 0 ? { ...page, posts: [optimisticPost, ...page.posts] } : page
+          ),
+        };
+        queryClient.setQueryData<PostsInfiniteData>(["posts"], updated);
       }
 
-      return { previousPosts };
+      return { previous };
     },
     onError: (_err, _vars, context) => {
-      if (context?.previousPosts) {
-        queryClient.setQueryData(["posts"], context.previousPosts);
+      if (context?.previous) {
+        queryClient.setQueryData(["posts"], context.previous);
       }
     },
     onSettled: () => {
@@ -102,7 +112,7 @@ export function useCreateComment(postId: string) {
 
       const previousComments = queryClient.getQueryData<Comment[]>(["comments", postId]);
       const previousPost = queryClient.getQueryData<Post>(["posts", postId]);
-      const previousPosts = queryClient.getQueryData<Post[]>(["posts"]);
+      const previousPosts = queryClient.getQueryData<PostsInfiniteData>(["posts"]);
 
       const optimisticComment: Comment = {
         id: `temp-${Date.now()}`,
@@ -126,9 +136,15 @@ export function useCreateComment(postId: string) {
       }
 
       if (previousPosts) {
-        queryClient.setQueryData<Post[]>(["posts"], previousPosts.map((p) =>
-          p.id === postId ? { ...p, comment_count: p.comment_count + 1 } : p
-        ));
+        queryClient.setQueryData<PostsInfiniteData>(["posts"], {
+          ...previousPosts,
+          pages: previousPosts.pages.map((page) => ({
+            ...page,
+            posts: page.posts.map((p) =>
+              p.id === postId ? { ...p, comment_count: p.comment_count + 1 } : p
+            ),
+          })),
+        });
       }
 
       return { previousComments, previousPost, previousPosts };
@@ -170,15 +186,12 @@ export function useToggleLike(postId: string) {
   return useMutation({
     mutationFn: () => api.toggleLike(postId),
     onMutate: async () => {
-      // Cancel outgoing refetches so they don't overwrite our optimistic update
       await queryClient.cancelQueries({ queryKey: ["posts", postId] });
       await queryClient.cancelQueries({ queryKey: ["posts"] });
 
-      // Snapshot previous values for rollback
       const previousPost = queryClient.getQueryData<Post>(["posts", postId]);
-      const previousPosts = queryClient.getQueryData<Post[]>(["posts"]);
+      const previousPosts = queryClient.getQueryData<PostsInfiniteData>(["posts"]);
 
-      // Optimistically update the post detail cache
       if (previousPost) {
         queryClient.setQueryData<Post>(["posts", postId], {
           ...previousPost,
@@ -189,28 +202,29 @@ export function useToggleLike(postId: string) {
         });
       }
 
-      // Optimistically update the posts list cache
       if (previousPosts) {
-        queryClient.setQueryData<Post[]>(
-          ["posts"],
-          previousPosts.map((p) =>
-            p.id === postId
-              ? {
-                  ...p,
-                  liked_by_user: !p.liked_by_user,
-                  like_count: p.liked_by_user
-                    ? p.like_count - 1
-                    : p.like_count + 1,
-                }
-              : p
-          )
-        );
+        queryClient.setQueryData<PostsInfiniteData>(["posts"], {
+          ...previousPosts,
+          pages: previousPosts.pages.map((page) => ({
+            ...page,
+            posts: page.posts.map((p) =>
+              p.id === postId
+                ? {
+                    ...p,
+                    liked_by_user: !p.liked_by_user,
+                    like_count: p.liked_by_user
+                      ? p.like_count - 1
+                      : p.like_count + 1,
+                  }
+                : p
+            ),
+          })),
+        });
       }
 
       return { previousPost, previousPosts };
     },
     onError: (_err, _vars, context) => {
-      // Rollback to previous values on error
       if (context?.previousPost) {
         queryClient.setQueryData(["posts", postId], context.previousPost);
       }
@@ -219,7 +233,6 @@ export function useToggleLike(postId: string) {
       }
     },
     onSettled: () => {
-      // Always refetch after error or success to ensure consistency
       queryClient.invalidateQueries({ queryKey: ["posts", postId] });
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },

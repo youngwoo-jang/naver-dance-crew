@@ -1,4 +1,4 @@
-import { Post, Comment, CreatePostInput, CreateCommentInput } from "@/types/post";
+import { Post, PostsPage, Comment, CreatePostInput, CreateCommentInput } from "@/types/post";
 
 function generateId(): string {
   const bytes = new Uint8Array(16);
@@ -24,8 +24,11 @@ function headers() {
 }
 
 // Posts
-export async function fetchPosts(): Promise<Post[]> {
-  const res = await fetch("/api/posts", { headers: headers() });
+export async function fetchPosts(cursor?: string): Promise<PostsPage> {
+  const params = new URLSearchParams();
+  if (cursor) params.set("cursor", cursor);
+  params.set("limit", "20");
+  const res = await fetch(`/api/posts?${params}`, { headers: headers() });
   if (!res.ok) throw new Error("Failed to fetch posts");
   return res.json();
 }

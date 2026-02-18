@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BottomNav } from "@/components/ui/BottomNav";
@@ -37,7 +37,27 @@ function BoardPageContent() {
   const router = useRouter();
   const userId = useLocalUser();
   const { isAdmin, adminQuery } = useAdmin();
-  const { data: posts, isLoading } = usePosts();
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = usePosts();
+  const posts = data?.pages.flatMap((p) => p.posts);
+
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const fetchNextPageRef = useRef(fetchNextPage);
+  fetchNextPageRef.current = fetchNextPage;
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          fetchNextPageRef.current();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   const deletePost = useDeletePost();
 
   return (
@@ -142,7 +162,14 @@ function BoardPageContent() {
             );
           })
         )}
-        <div className="h-28" />
+        {hasNextPage && (
+          <div ref={sentinelRef} className="flex items-center justify-center py-6">
+            {isFetchingNextPage && (
+              <span className="text-[14px] text-gray-400">불러오는 중...</span>
+            )}
+          </div>
+        )}
+        <div className="h-40" />
       </main>
 
       {/* FAB */}

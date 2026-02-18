@@ -31,6 +31,11 @@ export interface CreatePostInput {
   is_admin?: boolean;
 }
 
+export interface PostsPage {
+  posts: Post[];
+  nextCursor: string | null;
+}
+
 export interface CreateCommentInput {
   content: string;
   display_author: string;
