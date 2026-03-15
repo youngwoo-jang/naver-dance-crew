@@ -9,7 +9,7 @@ export async function GET(
   const { id } = await params;
 
   const { data, error } = await supabase
-    .from("comments")
+    .from("ndc-comments")
     .select("*")
     .eq("post_id", id)
     .order("created_at", { ascending: true });
@@ -38,7 +38,7 @@ export async function POST(
   }
 
   const { data, error } = await supabase
-    .from("comments")
+    .from("ndc-comments")
     .insert({
       post_id: id,
       content: content.trim(),
@@ -72,7 +72,7 @@ export async function DELETE(
   }
 
   const { error } = await supabase
-    .from("comments")
+    .from("ndc-comments")
     .delete()
     .eq("id", commentId);
 

@@ -10,7 +10,7 @@ export async function GET(
   const userId = request.headers.get("x-user-id") || "";
 
   const { data: post, error } = await supabase
-    .from("posts")
+    .from("ndc-posts")
     .select("*")
     .eq("id", id)
     .single();
@@ -22,16 +22,16 @@ export async function GET(
   const [{ count: commentCount }, { count: likeCount }, { data: userLike }] =
     await Promise.all([
       supabase
-        .from("comments")
+        .from("ndc-comments")
         .select("*", { count: "exact", head: true })
         .eq("post_id", id),
       supabase
-        .from("likes")
+        .from("ndc-likes")
         .select("*", { count: "exact", head: true })
         .eq("post_id", id),
       userId
         ? supabase
-            .from("likes")
+            .from("ndc-likes")
             .select("id")
             .eq("post_id", id)
             .eq("user_id", userId)
@@ -64,7 +64,7 @@ export async function PATCH(
   if (tags !== undefined) updates.tags = tags;
 
   const { data, error } = await supabase
-    .from("posts")
+    .from("ndc-posts")
     .update(updates)
     .eq("id", id)
     .select()
@@ -84,7 +84,7 @@ export async function DELETE(
 ) {
   const { id } = await params;
 
-  const { error } = await supabase.from("posts").delete().eq("id", id);
+  const { error } = await supabase.from("ndc-posts").delete().eq("id", id);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

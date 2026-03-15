@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   const limit = Math.min(Number(searchParams.get("limit")) || 20, 100);
 
   let query = supabase
-    .from("posts")
+    .from("ndc-posts")
     .select("*")
     .order("created_at", { ascending: false })
     .limit(limit + 1); // fetch one extra to determine if there's a next page
@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
       supabase.rpc("get_like_counts", { post_ids: postIds }),
       userId
         ? supabase
-            .from("likes")
+            .from("ndc-likes")
             .select("post_id")
             .eq("user_id", userId)
             .in("post_id", postIds)
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
   }
 
   const { data, error } = await supabase
-    .from("posts")
+    .from("ndc-posts")
     .insert({
       title: title.trim(),
       content: content.trim(),

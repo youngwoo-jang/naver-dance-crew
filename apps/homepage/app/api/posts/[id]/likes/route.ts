@@ -19,7 +19,7 @@ export async function POST(
 
   // Check if already liked
   const { data: existing } = await supabase
-    .from("likes")
+    .from("ndc-likes")
     .select("id")
     .eq("post_id", id)
     .eq("user_id", user_id)
@@ -27,11 +27,11 @@ export async function POST(
 
   if (existing) {
     // Unlike
-    await supabase.from("likes").delete().eq("id", existing.id);
+    await supabase.from("ndc-likes").delete().eq("id", existing.id);
   } else {
     // Like
     const { error } = await supabase
-      .from("likes")
+      .from("ndc-likes")
       .insert({ post_id: id, user_id });
 
     if (error) {
@@ -41,7 +41,7 @@ export async function POST(
 
   // Return updated count
   const { count } = await supabase
-    .from("likes")
+    .from("ndc-likes")
     .select("*", { count: "exact", head: true })
     .eq("post_id", id);
 
